@@ -1229,6 +1229,8 @@ function buildSummary(
     });
   });
 
+  visibleTypeCardsList.sort((a, b) => (typeTotals[b]?.count || 0) - (typeTotals[a]?.count || 0));
+
   const cards = [
     { title: "Total Activities", value: totals.count.toLocaleString() },
   ];

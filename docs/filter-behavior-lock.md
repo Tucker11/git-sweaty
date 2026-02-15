@@ -7,18 +7,22 @@ Refactors should preserve these behaviors exactly unless a deliberate product ch
 
 ### Type button row (`toggleType`)
 
-1. Clicking `all` sets `allTypesMode = true` and clears `selectedTypes`.
-2. Clicking a specific type while in all mode exits all mode and selects only that type.
-3. Clicking a selected type removes it.
-4. If the last selected type is removed, the state snaps back to all mode.
+1. Fresh-load default state is implicit all (`allTypesMode = true`, `selectedTypes` empty) with no active top-row type chip highlight.
+2. Clicking `all` from implicit all switches to explicit all (`allTypesMode = false`, `selectedTypes` contains every type).
+3. Clicking `all` from explicit all toggles back to implicit all.
+4. Clicking a specific type while in all mode exits all mode and selects only that type.
+5. Clicking a selected type removes it.
+6. If the last selected type is removed, the state snaps back to all mode.
 
 ### Year button row (`toggleYear`)
 
-1. Clicking `all` sets `allYearsMode = true` and clears `selectedYears`.
-2. Clicking a specific year while in all mode exits all mode and selects only that year.
-3. Clicking a selected year removes it.
-4. If the last selected year is removed, the state snaps back to all mode.
-5. Year values outside `currentVisibleYears` are ignored.
+1. Fresh-load default state is implicit all (`allYearsMode = true`, `selectedYears` empty) with no active top-row year chip highlight.
+2. Clicking `all` from implicit all switches to explicit all (`allYearsMode = false`, `selectedYears` contains every visible year).
+3. Clicking `all` from explicit all toggles back to implicit all.
+4. Clicking a specific year while in all mode exits all mode and selects only that year.
+5. Clicking a selected year removes it.
+6. If the last selected year is removed, the state snaps back to all mode.
+7. Year values outside `currentVisibleYears` are ignored.
 
 ## Dropdown Menus
 
@@ -41,13 +45,20 @@ Refactors should preserve these behaviors exactly unless a deliberate product ch
 ### Done button behavior (`finalizeTypeSelection`, `finalizeYearSelection`)
 
 1. Clicking `Done` commits the current draft state into live filter state.
-2. If every individual option is selected in non-all mode, state compresses back to all mode with empty explicit set.
-3. Closing a dropdown without `Done` (outside tap or toggling closed) discards the draft and keeps live filters unchanged.
+2. Type selection does not auto-compress explicit-all into implicit-all after `Done`; explicit-all remains explicit.
+3. Year selection still compresses explicit-all into implicit-all after `Done`.
+4. Closing a dropdown without `Done` (outside tap or toggling closed) discards the draft and keeps live filters unchanged.
 
 ### Dropdown apply timing
 
 1. Menu option clicks update menu UI only (checkmarks/label text) and do not rerender dashboard cards.
 2. Dashboard cards rerender only when committed state changes (for example on `Done`, top-row buttons, clear, reset).
+
+### Mobile type action button
+
+1. On narrow/mobile layout, the type action button shows `Select All` (enabled) in implicit-all mode.
+2. Pressing `Select All` on mobile switches type state to explicit all.
+3. When not in implicit-all mode, the button label is `Clear` and restores implicit all when pressed.
 
 ## Summary Cards and Card-Level Filters
 

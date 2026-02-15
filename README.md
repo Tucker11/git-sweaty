@@ -51,6 +51,7 @@ Follow the terminal prompts to choose a source and unit preference:
    - The prompt will then ask for `Client ID` and `Client Secret`, and if you'd like to place your Strava profile link on the dashboard.
 - `garmin` - terminal prompts for Garmin email/password
 - unit preference (`US` or `Metric`)
+- optional custom dashboard domain (for example `strava.example.com`), which setup will apply to GitHub Pages automatically
 
 The setup may take several minutes to complete when run for the first time. If any automation step fails, the script prints steps to remedy the failed step.  
 Once the script succeeds, it will provide the URL for your dashboard.

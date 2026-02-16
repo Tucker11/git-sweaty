@@ -81,8 +81,6 @@ const PROFILE_PROVIDER_STRAVA = "strava";
 const PROFILE_PROVIDER_GARMIN = "garmin";
 const TOUCH_TOOLTIP_TAP_MAX_MOVE_PX = 10;
 const TOUCH_TOOLTIP_TAP_MAX_SCROLL_PX = 2;
-const TOUCH_TOOLTIP_ZOOMED_VIEWPORT_SCALE_MIN = 1.05;
-const TOUCH_TOOLTIP_ZOOMED_VIEWPORT_DISMISS_MAX_SCROLL_PX = 12;
 
 function resetPersistentSideStatSizing() {
   persistentSideStatCardWidth = 0;
@@ -900,34 +898,6 @@ function getTooltipScale() {
     return 1;
   }
   return 1 / scale;
-}
-
-function isTouchViewportZoomed() {
-  const scale = Number(window.visualViewport?.scale);
-  return Number.isFinite(scale) && scale > TOUCH_TOOLTIP_ZOOMED_VIEWPORT_SCALE_MIN;
-}
-
-function getTouchViewportScrollDismissThresholdPx() {
-  if (!isTouchViewportZoomed()) {
-    return TOUCH_TOOLTIP_TAP_MAX_SCROLL_PX;
-  }
-  const scale = Number(window.visualViewport?.scale);
-  if (!Number.isFinite(scale) || scale <= 0) {
-    return TOUCH_TOOLTIP_TAP_MAX_SCROLL_PX;
-  }
-  return Math.max(
-    TOUCH_TOOLTIP_TAP_MAX_SCROLL_PX,
-    Math.min(
-      TOUCH_TOOLTIP_ZOOMED_VIEWPORT_DISMISS_MAX_SCROLL_PX,
-      Math.round(scale * TOUCH_TOOLTIP_TAP_MAX_SCROLL_PX),
-    ),
-  );
-}
-
-function shouldPreserveTouchTooltipOnPassiveViewportEvent(cardScrollEvent, viewportMoved) {
-  if (!useTouchInteractions) return false;
-  if (cardScrollEvent || viewportMoved) return false;
-  return isTouchViewportZoomed();
 }
 
 function positionTooltip(x, y) {
@@ -4657,9 +4627,8 @@ async function init() {
 
       const currentScrollX = window.scrollX || window.pageXOffset || 0;
       const currentScrollY = window.scrollY || window.pageYOffset || 0;
-      const viewportMoveDismissThreshold = getTouchViewportScrollDismissThresholdPx();
-      const viewportMoved = Math.abs(currentScrollX - lastTouchViewportScrollX) >= viewportMoveDismissThreshold
-        || Math.abs(currentScrollY - lastTouchViewportScrollY) >= viewportMoveDismissThreshold;
+      const viewportMoved = Math.abs(currentScrollX - lastTouchViewportScrollX) >= 2
+        || Math.abs(currentScrollY - lastTouchViewportScrollY) >= 2;
       lastTouchViewportScrollX = currentScrollX;
       lastTouchViewportScrollY = currentScrollY;
 
@@ -4674,9 +4643,6 @@ async function init() {
       }
 
       if (nowMs() <= touchTooltipInteractionBlockUntil || shouldIgnoreTouchTooltipDismiss()) {
-        return;
-      }
-      if (shouldPreserveTouchTooltipOnPassiveViewportEvent(cardScrollEvent, viewportMoved)) {
         return;
       }
       dismissTooltipState();

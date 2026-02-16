@@ -8,7 +8,7 @@ Automatically generates a free, interactive dashboard updated daily on GitHub Pa
 - Once setup is complete, this dashboard link will automatically update to your own GitHub Pages URL.
 
 
-![Dashboard Preview](site/readme-preview-20260215.png)
+![Dashboard Preview](site/readme-preview-20260216b.png)
 
 ## Quick Start
 
@@ -26,6 +26,8 @@ You will be prompted for:
 - Source (`strava` or `garmin`)
 - Unit preference (`US` or `Metric`)
 - Heatmap week start (`Sunday` or `Monday`)
+- Optional profile link in the dashboard header for the selected source (`Yes` or `No`)
+- Optional tooltip links to individual activities for the selected source (`Yes` or `No`)
 
 The setup may take several minutes to complete when run for the first time. If any automation step fails, the script prints steps to remedy the failed step.  
 Once the script succeeds, it will provide the URL for your dashboard.
@@ -44,6 +46,16 @@ You can switch between `strava` and `garmin` any time.
 - Re-run `./scripts/bootstrap.sh` and choose a different source.
 - If you re-run setup and choose the same source, setup asks whether to force a one-time full backfill for that run.
 
+## Other Features
+
+- The GitHub Pages site is optimized for responsive desktop/mobile viewing.
+- To click activity urls while viewing on desktop, click the graph dot to freeze the tooltip in place.
+- If a day contains multiple activity types, that day’s colored square is split into equal segments — one per unique activity type on that day.
+- Raw activities are stored locally for processing but are not committed (`activities/raw/` is ignored). This prevents publishing detailed per-activity payloads and GPS location traces.
+- If neither `sync.start_date` nor `sync.lookback_years` is set, the sync workflow backfills all available history from the selected source (i.e. Strava/Garmin).
+- Strava backfill state is stored in `data/backfill_state_strava.json`; Garmin backfill state is stored in `data/backfill_state_garmin.json`. If a backfill hits API limits (unlikely), this state allows the daily refresh automation to pick back up where it left off.
+- The Sync action workflow includes a toggle labeled `Reset backfill cursor and re-fetch full history for the selected source` which forces a one-time full backfill. This is useful if you add/delete/modify activities which have already been loaded.
+
 ## Configuration (Optional)
 
 Everything in this section is optional. Defaults work without changes.
@@ -51,8 +63,10 @@ Base settings live in `config.yaml`, and `config.local.yaml` overrides them when
 
 Auth + source settings:
 - `source` (`strava` or `garmin`)
-- `strava.client_id`, `strava.client_secret`, `strava.refresh_token`
-- `garmin.token_store_b64`, `garmin.email`, `garmin.password`
+- `strava.client_id`, `strava.client_secret`, `strava.refresh_token`, `strava.profile_url`
+- `strava.include_activity_urls` (when `true`, yearly tooltip details include links to individual Strava activities)
+- `garmin.token_store_b64`, `garmin.email`, `garmin.password`, `garmin.profile_url`
+- `garmin.include_activity_urls` (when `true`, yearly tooltip details include links to individual Garmin activities)
 - `garmin.strict_token_only` (when `true`, Garmin sync requires `garmin.token_store_b64` and does not fall back to email/password auth)
 
 Sync scope + backfill behavior:
@@ -77,12 +91,3 @@ Display + rate-limit settings:
 - `units.elevation` (`ft` or `m`)
 - `heatmaps.week_start` (`sunday` or `monday`)
 - `rate_limits.*` (Strava API pacing caps used by sync; ignored for Garmin)
-
-## Notes
-
-- Raw activities are stored locally for processing but are not committed (`activities/raw/` is ignored). This prevents publishing detailed per-activity payloads and GPS location traces.
-- If neither `sync.start_date` nor `sync.lookback_years` is set, the sync workflow backfills all available history from the selected source (i.e. Strava/Garmin).
-- Strava backfill state is stored in `data/backfill_state_strava.json`; Garmin backfill state is stored in `data/backfill_state_garmin.json`. If a backfill hits API limits (unlikely), this state allows the daily refresh automation to pick back up where it left off.
-- The Sync action workflow includes a toggle labeled `Reset backfill cursor and re-fetch full history for the selected source` which forces a one-time full backfill. This is useful if you add/delete/modify activities which have already been loaded.
-- The GitHub Pages site is optimized for responsive desktop/mobile viewing.
-- If a day contains multiple activity types, that day’s colored square is split into equal segments — one per unique activity type on that day.

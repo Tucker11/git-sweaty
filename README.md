@@ -28,6 +28,9 @@ You will be prompted for:
 - Heatmap week start (`Sunday` or `Monday`)
 - Optional profile link in the dashboard header for the selected source (`Yes` or `No`)
 - Optional tooltip links to individual activities for the selected source (`Yes` or `No`)
+- Source auth credentials (after the optional link prompts):
+  - Strava: API `client_id` + `client_secret`, then browser OAuth approval
+  - Garmin: account email + password (or pre-generated token store input)
 
 The setup may take several minutes to complete when run for the first time. If any automation step fails, the script prints steps to remedy the failed step.  
 Once the script succeeds, it will provide the URL for your dashboard.

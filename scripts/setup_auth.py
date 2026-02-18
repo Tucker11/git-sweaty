@@ -1973,48 +1973,101 @@ def _find_latest_workflow_run(
     workflow: str,
     event: str,
     not_before: datetime,
-    poll_attempts: int = 12,
+    poll_attempts: int = 45,
     sleep_seconds: int = 2,
     progress_label: Optional[str] = None,
 ) -> Tuple[Optional[int], Optional[str]]:
+    time_skew_grace = timedelta(minutes=2)
+    earliest_allowed = not_before - time_skew_grace
+
+    def _pick_run(runs: object) -> Tuple[Optional[int], Optional[str]]:
+        if not isinstance(runs, list):
+            return None, None
+        primary: list[tuple[datetime, int, Optional[str]]] = []
+        fallback: list[tuple[datetime, int, Optional[str]]] = []
+        for run in runs:
+            if not isinstance(run, dict):
+                continue
+            created_at = _parse_iso8601_utc(str(run.get("createdAt", "")))
+            run_id = run.get("databaseId")
+            run_url = run.get("url")
+            if created_at is None or not isinstance(run_id, int):
+                continue
+            if created_at >= not_before:
+                primary.append((created_at, run_id, str(run_url) if run_url else None))
+            elif created_at >= earliest_allowed:
+                fallback.append((created_at, run_id, str(run_url) if run_url else None))
+        if primary:
+            primary.sort(key=lambda item: item[0], reverse=True)
+            _, run_id, run_url = primary[0]
+            return run_id, run_url
+        if fallback:
+            fallback.sort(key=lambda item: item[0], reverse=True)
+            _, run_id, run_url = fallback[0]
+            return run_id, run_url
+        return None, None
+
     if progress_label:
         timeout_seconds = poll_attempts * sleep_seconds
         print(f"\nWaiting for {progress_label} (up to {timeout_seconds}s)...")
     for attempt in range(1, poll_attempts + 1):
-        result = _run(
-            [
-                "gh",
-                "run",
-                "list",
-                "--repo",
-                repo,
-                "--workflow",
-                workflow,
-                "--event",
-                event,
-                "--limit",
-                "10",
-                "--json",
-                "databaseId,url,createdAt",
-            ],
-            check=False,
-        )
+        fields = "databaseId,url,createdAt"
+        list_cmd = [
+            "gh",
+            "run",
+            "list",
+            "--repo",
+            repo,
+            "--workflow",
+            workflow,
+            "--limit",
+            "30",
+            "--json",
+            fields,
+        ]
+        if event:
+            list_cmd.extend(["--event", event])
+        result = _run(list_cmd, check=False)
         if result.returncode == 0:
             try:
                 runs = json.loads(result.stdout or "[]")
             except json.JSONDecodeError:
                 runs = []
-            for run in runs:
-                created_at = _parse_iso8601_utc(str(run.get("createdAt", "")))
-                if created_at is None:
-                    continue
-                if created_at >= not_before:
-                    run_id = run.get("databaseId")
-                    run_url = run.get("url")
-                    if isinstance(run_id, int):
-                        if progress_label:
-                            print(f"Detected {progress_label}.")
-                        return run_id, str(run_url) if run_url else None
+            run_id, run_url = _pick_run(runs)
+            if run_id is not None:
+                if progress_label:
+                    print(f"Detected {progress_label}.")
+                return run_id, run_url
+
+        # Some environments report delayed/mismatched event classification for newly dispatched runs.
+        # Fall back to scanning the same workflow without event filtering before giving up this poll.
+        if event:
+            fallback_result = _run(
+                [
+                    "gh",
+                    "run",
+                    "list",
+                    "--repo",
+                    repo,
+                    "--workflow",
+                    workflow,
+                    "--limit",
+                    "30",
+                    "--json",
+                    fields,
+                ],
+                check=False,
+            )
+            if fallback_result.returncode == 0:
+                try:
+                    fallback_runs = json.loads(fallback_result.stdout or "[]")
+                except json.JSONDecodeError:
+                    fallback_runs = []
+                run_id, run_url = _pick_run(fallback_runs)
+                if run_id is not None:
+                    if progress_label:
+                        print(f"Detected {progress_label}.")
+                    return run_id, run_url
         if progress_label and (attempt == 1 or attempt % 5 == 0):
             print(f"Still waiting for {progress_label}... ({attempt}/{poll_attempts})")
         time.sleep(sleep_seconds)

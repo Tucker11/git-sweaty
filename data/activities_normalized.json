@@ -1131,6 +1131,19 @@
     "year": 2026
   },
   {
+    "date": "2026-02-12",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "17449814193",
+    "moving_time": 3000.0,
+    "name": "Evening Run",
+    "raw_activity_type": "Run",
+    "raw_type": "Run",
+    "start_date_local": "2026-02-12T19:58:00Z",
+    "type": "Run",
+    "year": 2026
+  },
+  {
     "date": "2026-02-13",
     "distance": 0.0,
     "elevation_gain": 0.0,
@@ -1157,6 +1170,32 @@
     "year": 2026
   },
   {
+    "date": "2026-02-15",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "17449814471",
+    "moving_time": 480.0,
+    "name": "Morning Run",
+    "raw_activity_type": "Run",
+    "raw_type": "Run",
+    "start_date_local": "2026-02-15T04:26:00Z",
+    "type": "Run",
+    "year": 2026
+  },
+  {
+    "date": "2026-02-15",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "17449815378",
+    "moving_time": 3480.0,
+    "name": "Evening Run",
+    "raw_activity_type": "Run",
+    "raw_type": "Run",
+    "start_date_local": "2026-02-15T19:58:00Z",
+    "type": "Run",
+    "year": 2026
+  },
+  {
     "date": "2026-02-16",
     "distance": 0.0,
     "elevation_gain": 0.0,
@@ -1167,6 +1206,19 @@
     "raw_type": "WeightTraining",
     "start_date_local": "2026-02-16T06:55:32Z",
     "type": "WeightTraining",
+    "year": 2026
+  },
+  {
+    "date": "2026-02-16",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "17449816020",
+    "moving_time": 3240.0,
+    "name": "Evening Run",
+    "raw_activity_type": "Run",
+    "raw_type": "Run",
+    "start_date_local": "2026-02-16T20:08:00Z",
+    "type": "Run",
     "year": 2026
   },
   {
@@ -1193,6 +1245,19 @@
     "raw_type": "Ride",
     "start_date_local": "2026-02-17T08:09:21Z",
     "type": "Ride",
+    "year": 2026
+  },
+  {
+    "date": "2026-02-17",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "17449817491",
+    "moving_time": 3360.0,
+    "name": "Evening Run",
+    "raw_activity_type": "Run",
+    "raw_type": "Run",
+    "start_date_local": "2026-02-17T20:02:00Z",
+    "type": "Run",
     "year": 2026
   },
   {

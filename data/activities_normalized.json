@@ -7291,5 +7291,31 @@
     "start_date_local": "2026-02-19T18:34:42Z",
     "type": "Workout",
     "year": 2026
+  },
+  {
+    "date": "2026-02-21",
+    "distance": 3135.4,
+    "elevation_gain": 0.0,
+    "id": "17465855999",
+    "moving_time": 2292.0,
+    "name": "Frisbee game vs: Kronk",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-02-21T08:59:42Z",
+    "type": "Workout",
+    "year": 2026
+  },
+  {
+    "date": "2026-02-21",
+    "distance": 4220.3,
+    "elevation_gain": 0.0,
+    "id": "17467377350",
+    "moving_time": 3243.0,
+    "name": "Frisbee game vs: Zepher",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-02-21T13:08:35Z",
+    "type": "Workout",
+    "year": 2026
   }
 ]

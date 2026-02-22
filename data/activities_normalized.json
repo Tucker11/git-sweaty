@@ -7317,5 +7317,44 @@
     "start_date_local": "2026-02-21T13:08:35Z",
     "type": "Workout",
     "year": 2026
+  },
+  {
+    "date": "2026-02-22",
+    "distance": 3977.3,
+    "elevation_gain": 0.0,
+    "id": "17477611187",
+    "moving_time": 3252.0,
+    "name": "Frisbee game vs: Manly",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-02-22T09:00:37Z",
+    "type": "Workout",
+    "year": 2026
+  },
+  {
+    "date": "2026-02-22",
+    "distance": 4083.7,
+    "elevation_gain": 0.0,
+    "id": "17478275747",
+    "moving_time": 3178.0,
+    "name": "Frisbee game vs: Stout",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-02-22T10:50:08Z",
+    "type": "Workout",
+    "year": 2026
+  },
+  {
+    "date": "2026-02-22",
+    "distance": 3863.9,
+    "elevation_gain": 0.0,
+    "id": "17478766153",
+    "moving_time": 2817.0,
+    "name": "Frisbee game vs: Equinox",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-02-22T13:00:16Z",
+    "type": "Workout",
+    "year": 2026
   }
 ]

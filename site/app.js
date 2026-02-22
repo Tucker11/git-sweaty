@@ -23,6 +23,7 @@ const WEEKDAY_LABELS_BY_WEEK_START = Object.freeze({
 });
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
 const ACTIVE_DAYS_METRIC_KEY = "active_days";
+const DAYS_OFF_METRIC_KEY = "days_off";
 const DEFAULT_UNITS = Object.freeze({ distance: "mi", elevation: "ft" });
 const UNIT_SYSTEM_TO_UNITS = Object.freeze({
   imperial: Object.freeze({ distance: "mi", elevation: "ft" }),
@@ -1316,6 +1317,34 @@ function formatLocalDateKey(date) {
   return `${y}-${m}-${d}`;
 }
 
+function getLocalTodayDateKey(referenceDate = new Date()) {
+  return formatLocalDateKey(referenceDate);
+}
+
+function isDateKeyElapsed(dateKey, todayDateKey = getLocalTodayDateKey()) {
+  const normalizedDateKey = String(dateKey || "");
+  return Boolean(normalizedDateKey) && normalizedDateKey <= todayDateKey;
+}
+
+function getElapsedDayCountForYear(year, referenceDate = new Date()) {
+  const normalizedYear = Number(year);
+  if (!Number.isFinite(normalizedYear)) return 0;
+  const currentYear = referenceDate.getFullYear();
+  if (normalizedYear > currentYear) return 0;
+  if (normalizedYear < currentYear) {
+    const yearStart = Date.UTC(normalizedYear, 0, 1);
+    const nextYearStart = Date.UTC(normalizedYear + 1, 0, 1);
+    return Math.max(0, Math.round((nextYearStart - yearStart) / MS_PER_DAY));
+  }
+  const currentDayUtc = Date.UTC(
+    referenceDate.getFullYear(),
+    referenceDate.getMonth(),
+    referenceDate.getDate(),
+  );
+  const yearStartUtc = Date.UTC(normalizedYear, 0, 1);
+  return Math.max(0, Math.floor((currentDayUtc - yearStartUtc) / MS_PER_DAY) + 1);
+}
+
 function localDayNumber(date) {
   return Math.floor(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / MS_PER_DAY);
 }
@@ -2283,6 +2312,7 @@ const FREQUENCY_METRIC_ITEMS = [
 ];
 const METRIC_LABEL_BY_KEY = Object.freeze({
   [ACTIVE_DAYS_METRIC_KEY]: "Active Days",
+  [DAYS_OFF_METRIC_KEY]: "Days Off",
   distance: "Distance",
   moving_time: "Time",
   elevation_gain: "Elevation",
@@ -2300,7 +2330,7 @@ function getFrequencyMetricUnavailableReason(metricKey, metricLabel) {
 }
 
 function formatMetricTotal(metricKey, value, units) {
-  if (metricKey === ACTIVE_DAYS_METRIC_KEY) {
+  if (metricKey === ACTIVE_DAYS_METRIC_KEY || metricKey === DAYS_OFF_METRIC_KEY) {
     return formatNumber(value, 0);
   }
   if (metricKey === "distance") {
@@ -2753,6 +2783,7 @@ function buildSummary(
     : [];
   const typeCardSet = new Set(visibleTypeCardsList);
   const activeDays = new Set();
+  const todayDateKey = getLocalTodayDateKey();
 
   Object.entries(payload.aggregates || {}).forEach(([year, yearData]) => {
     if (!years.includes(Number(year))) return;
@@ -2781,9 +2812,20 @@ function buildSummary(
   });
 
   visibleTypeCardsList.sort((a, b) => (typeTotals[b]?.count || 0) - (typeTotals[a]?.count || 0));
+  const elapsedDays = years.reduce(
+    (sum, year) => sum + getElapsedDayCountForYear(Number(year)),
+    0,
+  );
+  let elapsedActiveDays = 0;
+  activeDays.forEach((dateKey) => {
+    if (isDateKeyElapsed(dateKey, todayDateKey)) {
+      elapsedActiveDays += 1;
+    }
+  });
+  const daysOff = Math.max(0, elapsedDays - elapsedActiveDays);
 
   const cards = [
-    { title: "Total Activities", value: totals.count.toLocaleString() },
+    { title: "Activities", value: totals.count.toLocaleString() },
   ];
   if (showActiveDays) {
     cards.push({
@@ -2792,16 +2834,22 @@ function buildSummary(
       metricKey: ACTIVE_DAYS_METRIC_KEY,
       filterable: activeDays.size > 0,
     });
+    cards.push({
+      title: "Days Off",
+      value: daysOff.toLocaleString(),
+      metricKey: DAYS_OFF_METRIC_KEY,
+      filterable: daysOff > 0,
+    });
   }
   cards.push(
     {
-      title: "Total Time",
+      title: "Time",
       value: formatDuration(totals.moving_time),
       metricKey: "moving_time",
       filterable: totals.moving_time > 0,
     },
     {
-      title: "Total Distance",
+      title: "Distance",
       value: totals.distance > 0
         ? formatDistance(totals.distance, summaryUnits)
         : STAT_PLACEHOLDER,
@@ -2809,7 +2857,7 @@ function buildSummary(
       filterable: totals.distance > 0,
     },
     {
-      title: "Total Elevation",
+      title: "Elevation",
       value: totals.elevation > 0
         ? formatElevation(totals.elevation, summaryUnits)
         : STAT_PLACEHOLDER,
@@ -2915,12 +2963,15 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout, options
     : null;
   const metricHeatmapMax = metricHeatmapKey === ACTIVE_DAYS_METRIC_KEY
     ? 1
+    : metricHeatmapKey === DAYS_OFF_METRIC_KEY
+    ? 1
     : metricHeatmapKey
     ? Number(options.metricMaxByKey?.[metricHeatmapKey] || 0)
     : 0;
   const metricHeatmapActive = Boolean(metricHeatmapKey) && metricHeatmapMax > 0;
   const metricHeatmapColor = options.metricHeatmapColor || colors[4];
   const metricHeatmapEmptyColor = options.metricHeatmapEmptyColor || DEFAULT_COLORS[0];
+  const todayDateKey = getLocalTodayDateKey();
 
   const monthRow = document.createElement("div");
   monthRow.className = "month-row";
@@ -2992,6 +3043,8 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout, options
     if (metricHeatmapActive) {
       const metricValue = metricHeatmapKey === ACTIVE_DAYS_METRIC_KEY
         ? (filled ? 1 : 0)
+        : metricHeatmapKey === DAYS_OFF_METRIC_KEY
+        ? (!filled && isDateKeyElapsed(dateStr, todayDateKey) ? 1 : 0)
         : Number(entry[metricHeatmapKey] || 0);
       cell.style.backgroundImage = "none";
       cell.style.background = metricValue > 0
@@ -3275,6 +3328,7 @@ function buildCard(type, year, aggregates, units, options = {}) {
   const metricHeatmapColor = options.metricHeatmapColor || (type === "all" ? MULTI_TYPE_COLOR : colors[4]);
   const metricMaxByKey = {
     [ACTIVE_DAYS_METRIC_KEY]: 0,
+    [DAYS_OFF_METRIC_KEY]: 0,
     distance: 0,
     moving_time: 0,
     elevation_gain: 0,
@@ -3301,7 +3355,9 @@ function buildCard(type, year, aggregates, units, options = {}) {
     moving_time: 0,
     elevation: 0,
   };
-  Object.entries(aggregates || {}).forEach(([, entry]) => {
+  const todayDateKey = getLocalTodayDateKey();
+  let elapsedActiveDays = 0;
+  Object.entries(aggregates || {}).forEach(([dateStr, entry]) => {
     totals.count += entry.count || 0;
     totals.distance += entry.distance || 0;
     totals.moving_time += entry.moving_time || 0;
@@ -3309,8 +3365,14 @@ function buildCard(type, year, aggregates, units, options = {}) {
     metricMaxByKey.distance = Math.max(metricMaxByKey.distance, Number(entry.distance || 0));
     metricMaxByKey.moving_time = Math.max(metricMaxByKey.moving_time, Number(entry.moving_time || 0));
     metricMaxByKey.elevation_gain = Math.max(metricMaxByKey.elevation_gain, Number(entry.elevation_gain || 0));
+    if ((entry?.count || 0) > 0 && isDateKeyElapsed(dateStr, todayDateKey)) {
+      elapsedActiveDays += 1;
+    }
   });
+  const elapsedDaysInYear = getElapsedDayCountForYear(year);
+  const daysOffInYear = Math.max(0, elapsedDaysInYear - elapsedActiveDays);
   metricMaxByKey[ACTIVE_DAYS_METRIC_KEY] = totals.count > 0 ? 1 : 0;
+  metricMaxByKey[DAYS_OFF_METRIC_KEY] = daysOffInYear > 0 ? 1 : 0;
 
   const renderHeatmap = () => {
     const nextHeatmapArea = buildHeatmapArea(aggregates, year, units, colors, type, layout, {
@@ -3329,6 +3391,9 @@ function buildCard(type, year, aggregates, units, options = {}) {
   const filterableMetricKeys = getFilterableKeys(metricItems);
   if (totals.count > 0) {
     filterableMetricKeys.push(ACTIVE_DAYS_METRIC_KEY);
+  }
+  if (daysOffInYear > 0) {
+    filterableMetricKeys.push(DAYS_OFF_METRIC_KEY);
   }
   activeMetricKey = normalizeSingleSelectKey(activeMetricKey, filterableMetricKeys);
   const metricButtons = new Map();
@@ -3588,6 +3653,7 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
           : 0;
       };
       return {
+        dateKey: dateStr,
         date,
         type: activity.type,
         subtype: getActivitySubtypeLabel(activity),
@@ -3610,6 +3676,34 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
   visibleYearsDesc.forEach((year, index) => {
     yearIndex.set(Number(year), index);
   });
+  const activeDateKeys = new Set(activities.map((activity) => String(activity.dateKey || "")));
+  const daysOffEntries = [];
+  visibleYearsDesc.forEach((year) => {
+    const elapsedDaysInYear = getElapsedDayCountForYear(year);
+    if (elapsedDaysInYear <= 0) return;
+    const yearStartUtc = utcDateFromParts(year, 0, 1);
+    for (let dayOffset = 0; dayOffset < elapsedDaysInYear; dayOffset += 1) {
+      const dayUtc = new Date(yearStartUtc.getTime());
+      dayUtc.setUTCDate(dayUtc.getUTCDate() + dayOffset);
+      const dateKey = formatUtcDateKey(dayUtc);
+      if (activeDateKeys.has(dateKey)) continue;
+      const date = new Date(`${dateKey}T00:00:00`);
+      if (Number.isNaN(date.getTime())) continue;
+      daysOffEntries.push({
+        dateKey,
+        date,
+        type: "",
+        subtype: "",
+        year,
+        dayIndex: date.getDay(),
+        monthIndex: date.getMonth(),
+        weekIndex: weekOfYear(date),
+        hour: null,
+        active_days: 0,
+        [DAYS_OFF_METRIC_KEY]: 1,
+      });
+    }
+  });
 
   const formatBreakdown = (total, breakdown) => formatTooltipBreakdown(total, breakdown, types);
 
@@ -3631,8 +3725,11 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
     const weekTotals = new Array(54).fill(0);
     let activityCount = 0;
     let hourActivityCount = 0;
+    const sourceItems = metricKey === DAYS_OFF_METRIC_KEY
+      ? daysOffEntries
+      : activities;
 
-    activities.forEach((activity) => {
+    sourceItems.forEach((activity) => {
       if (typeof filterFn === "function" && !filterFn(activity)) {
         return;
       }
@@ -3640,6 +3737,8 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
       if (row === undefined) return;
       const weight = metricKey === ACTIVE_DAYS_METRIC_KEY
         ? Number(activity.active_days || 0)
+        : metricKey === DAYS_OFF_METRIC_KEY
+        ? Number(activity[DAYS_OFF_METRIC_KEY] || 0)
         : metricKey
         ? Number(activity[metricKey] || 0)
         : 1;
@@ -3651,16 +3750,20 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
         weekTotals[activity.weekIndex] += weight;
       }
 
-      const dayBucket = dayBreakdowns[row][activity.dayIndex];
-      const monthBucket = monthBreakdowns[row][activity.monthIndex];
-      addTooltipBreakdownCount(dayBucket, activity.type, activity.subtype);
-      addTooltipBreakdownCount(monthBucket, activity.type, activity.subtype);
+      if (metricKey !== DAYS_OFF_METRIC_KEY) {
+        const dayBucket = dayBreakdowns[row][activity.dayIndex];
+        const monthBucket = monthBreakdowns[row][activity.monthIndex];
+        addTooltipBreakdownCount(dayBucket, activity.type, activity.subtype);
+        addTooltipBreakdownCount(monthBucket, activity.type, activity.subtype);
+      }
 
       if (Number.isFinite(activity.hour)) {
         hourActivityCount += 1;
         hourMatrix[row][activity.hour] += weight;
-        const hourBucket = hourBreakdowns[row][activity.hour];
-        addTooltipBreakdownCount(hourBucket, activity.type, activity.subtype);
+        if (metricKey !== DAYS_OFF_METRIC_KEY) {
+          const hourBucket = hourBreakdowns[row][activity.hour];
+          addTooltipBreakdownCount(hourBucket, activity.type, activity.subtype);
+        }
       }
     });
 
@@ -3696,6 +3799,7 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
   const baseData = buildFrequencyData();
   const metricTotals = {
     [ACTIVE_DAYS_METRIC_KEY]: activities.reduce((sum, activity) => sum + Number(activity.active_days || 0), 0),
+    [DAYS_OFF_METRIC_KEY]: daysOffEntries.length,
     distance: activities.reduce((sum, activity) => sum + Number(activity.distance || 0), 0),
     moving_time: activities.reduce((sum, activity) => sum + Number(activity.moving_time || 0), 0),
     elevation_gain: activities.reduce((sum, activity) => sum + Number(activity.elevation_gain || 0), 0),
@@ -3709,6 +3813,9 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
   const filterableMetricKeys = getFilterableKeys(metricItems);
   if (Number(metricTotals[ACTIVE_DAYS_METRIC_KEY] || 0) > 0) {
     filterableMetricKeys.push(ACTIVE_DAYS_METRIC_KEY);
+  }
+  if (Number(metricTotals[DAYS_OFF_METRIC_KEY] || 0) > 0) {
+    filterableMetricKeys.push(DAYS_OFF_METRIC_KEY);
   }
   activeMetricKey = normalizeSingleSelectKey(activeMetricKey, filterableMetricKeys);
   const reportMetricState = (source) => {
@@ -3839,9 +3946,11 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
       const lines = [`${year} · ${label}`];
       if (activeMetricKey) {
         lines.push(formatTooltipValue(value));
-        const activityTotal = Object.values(breakdown?.typeCounts || {})
-          .reduce((sum, count) => sum + count, 0);
-        lines.push(formatBreakdown(activityTotal, breakdown));
+        if (activeMetricKey !== DAYS_OFF_METRIC_KEY) {
+          const activityTotal = Object.values(breakdown?.typeCounts || {})
+            .reduce((sum, count) => sum + count, 0);
+          lines.push(formatBreakdown(activityTotal, breakdown));
+        }
       } else {
         lines.push(formatBreakdown(value, breakdown));
       }
@@ -3885,7 +3994,7 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
     );
 
     hourPanel.body.innerHTML = "";
-    if (matrixData.hourActivityCount > 0) {
+    const renderHourMatrix = () => {
       const hourLabels = matrixData.hourTotals.map((_, hour) => (hour % 3 === 0 ? formatHourLabel(hour) : ""));
       const hourTooltipLabels = matrixData.hourTotals.map((_, hour) => `${formatHourLabel(hour)} (${hour}:00)`);
       hourPanel.body.appendChild(
@@ -3904,6 +4013,21 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
           },
         ),
       );
+    };
+    if (activeMetricKey === DAYS_OFF_METRIC_KEY) {
+      renderHourMatrix();
+      const hourGrid = hourPanel.body.querySelector(".axis-matrix-grid");
+      if (hourGrid) {
+        const unavailableNote = document.createElement("div");
+        unavailableNote.className = "hourly-days-off-note";
+        unavailableNote.textContent = "Hourly frequency unavailable for Days Off";
+        hourGrid.classList.add("hourly-days-off-unavailable-grid");
+        hourGrid.appendChild(unavailableNote);
+      }
+      return;
+    }
+    if (matrixData.hourActivityCount > 0) {
+      renderHourMatrix();
       return;
     }
 

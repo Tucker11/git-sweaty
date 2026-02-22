@@ -1014,9 +1014,9 @@ function getDominantYearRailWidth(widths) {
   });
   let bestBucket = null;
   let bestCount = -1;
-  let bestBucketWidth = 0;
+  let bestBucketWidth = Infinity;
   buckets.forEach((entry, bucket) => {
-    if (entry.count > bestCount || (entry.count === bestCount && bucket > bestBucketWidth)) {
+    if (entry.count > bestCount || (entry.count === bestCount && bucket < bestBucketWidth)) {
       bestCount = entry.count;
       bestBucket = entry;
       bestBucketWidth = bucket;

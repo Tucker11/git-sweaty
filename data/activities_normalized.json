@@ -7447,5 +7447,44 @@
     "start_date_local": "2026-03-05T18:39:54Z",
     "type": "Workout",
     "year": 2026
+  },
+  {
+    "date": "2026-03-07",
+    "distance": 3828.5,
+    "elevation_gain": 14.3,
+    "id": "17630407381",
+    "moving_time": 2846.0,
+    "name": "Frisbee game vs: Trail Mix",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-03-07T10:16:42Z",
+    "type": "Workout",
+    "year": 2026
+  },
+  {
+    "date": "2026-03-07",
+    "distance": 4032.4,
+    "elevation_gain": 2.4,
+    "id": "17631151269",
+    "moving_time": 2787.0,
+    "name": "Frisbee game vs: U-Beam",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-03-07T13:19:34Z",
+    "type": "Workout",
+    "year": 2026
+  },
+  {
+    "date": "2026-03-07",
+    "distance": 3804.6,
+    "elevation_gain": 47.1,
+    "id": "17631678319",
+    "moving_time": 2717.0,
+    "name": "Frisbee game vs: Extinction",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-03-07T16:18:36Z",
+    "type": "Workout",
+    "year": 2026
   }
 ]

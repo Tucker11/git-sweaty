@@ -5183,6 +5183,33 @@
       "type": "Workout",
       "url": "https://www.strava.com/activities/17631678319",
       "year": 2026
+    },
+    {
+      "date": "2026-03-08",
+      "hour": 10,
+      "name": "Frisbee game vs: SWU Claw",
+      "subtype": "Workout",
+      "type": "Workout",
+      "url": "https://www.strava.com/activities/17642211816",
+      "year": 2026
+    },
+    {
+      "date": "2026-03-08",
+      "hour": 13,
+      "name": "Frisbee game vs: Stout",
+      "subtype": "Workout",
+      "type": "Workout",
+      "url": "https://www.strava.com/activities/17643055963",
+      "year": 2026
+    },
+    {
+      "date": "2026-03-08",
+      "hour": 14,
+      "name": "Afternoon Workout",
+      "subtype": "Workout",
+      "type": "Workout",
+      "url": "https://www.strava.com/activities/17643241478",
+      "year": 2026
     }
   ],
   "aggregates": {
@@ -9773,11 +9800,22 @@
           "distance": 11665.5,
           "elevation_gain": 63.8,
           "moving_time": 8350.0
+        },
+        "2026-03-08": {
+          "activity_ids": [
+            "17642211816",
+            "17643055963",
+            "17643241478"
+          ],
+          "count": 3,
+          "distance": 8966.2,
+          "elevation_gain": 122.19999999999999,
+          "moving_time": 6682.0
         }
       }
     }
   },
-  "generated_at": "2026-03-07T15:27:54.095659+00:00",
+  "generated_at": "2026-03-08T15:27:51.731871+00:00",
   "other_bucket": "OtherSports",
   "profile_url": "https://www.strava.com/athletes/93365809",
   "repo": "Tucker11/git-sweaty",

@@ -7551,5 +7551,18 @@
     "start_date_local": "2026-03-11T07:02:12Z",
     "type": "WeightTraining",
     "year": 2026
+  },
+  {
+    "date": "2026-03-12",
+    "distance": 5905.1,
+    "elevation_gain": 12.4,
+    "id": "17694451763",
+    "moving_time": 4179.0,
+    "name": "Frisbee training",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-03-12T18:31:44Z",
+    "type": "Workout",
+    "year": 2026
   }
 ]

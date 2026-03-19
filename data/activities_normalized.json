@@ -7629,5 +7629,44 @@
     "start_date_local": "2026-03-18T06:58:45Z",
     "type": "WeightTraining",
     "year": 2026
+  },
+  {
+    "date": "2026-03-19",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "17772007336",
+    "moving_time": 3712.0,
+    "name": "Morning Weight Training",
+    "raw_activity_type": "WeightTraining",
+    "raw_type": "WeightTraining",
+    "start_date_local": "2026-03-19T07:12:30Z",
+    "type": "WeightTraining",
+    "year": 2026
+  },
+  {
+    "date": "2026-03-19",
+    "distance": 18247.1,
+    "elevation_gain": 0.0,
+    "id": "17772433460",
+    "moving_time": 2516.0,
+    "name": "Morning Ride",
+    "raw_activity_type": "Ride",
+    "raw_type": "Ride",
+    "start_date_local": "2026-03-19T08:17:13Z",
+    "type": "Ride",
+    "year": 2026
+  },
+  {
+    "date": "2026-03-19",
+    "distance": 4666.7,
+    "elevation_gain": 3.9,
+    "id": "17776027815",
+    "moving_time": 3434.0,
+    "name": "Frisbee training",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-03-19T17:38:52Z",
+    "type": "Workout",
+    "year": 2026
   }
 ]

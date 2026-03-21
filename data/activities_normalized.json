@@ -7668,5 +7668,31 @@
     "start_date_local": "2026-03-19T17:38:52Z",
     "type": "Workout",
     "year": 2026
+  },
+  {
+    "date": "2026-03-21",
+    "distance": 4295.3,
+    "elevation_gain": 50.0,
+    "id": "17796051128",
+    "moving_time": 1444.0,
+    "name": "Le\u2019 pastry run",
+    "raw_activity_type": "Run",
+    "raw_type": "Run",
+    "start_date_local": "2026-03-21T08:29:42Z",
+    "type": "Run",
+    "year": 2026
+  },
+  {
+    "date": "2026-03-21",
+    "distance": 2812.2,
+    "elevation_gain": 31.0,
+    "id": "17798233531",
+    "moving_time": 3277.0,
+    "name": "Afternoon Workout",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-03-21T14:28:26Z",
+    "type": "Workout",
+    "year": 2026
   }
 ]

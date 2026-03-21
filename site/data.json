@@ -5309,6 +5309,24 @@
       "type": "Workout",
       "url": "https://www.strava.com/activities/17776027815",
       "year": 2026
+    },
+    {
+      "date": "2026-03-21",
+      "hour": 8,
+      "name": "Le\u2019 pastry run",
+      "subtype": "Run",
+      "type": "Run",
+      "url": "https://www.strava.com/activities/17796051128",
+      "year": 2026
+    },
+    {
+      "date": "2026-03-21",
+      "hour": 14,
+      "name": "Afternoon Workout",
+      "subtype": "Workout",
+      "type": "Workout",
+      "url": "https://www.strava.com/activities/17798233531",
+      "year": 2026
     }
   ],
   "aggregates": {
@@ -9458,6 +9476,17 @@
           "moving_time": 2516.0
         }
       },
+      "Run": {
+        "2026-03-21": {
+          "activity_ids": [
+            "17796051128"
+          ],
+          "count": 1,
+          "distance": 4295.3,
+          "elevation_gain": 50.0,
+          "moving_time": 1444.0
+        }
+      },
       "Swim": {
         "2026-01-18": {
           "activity_ids": [
@@ -10009,11 +10038,20 @@
           "distance": 4666.7,
           "elevation_gain": 3.9,
           "moving_time": 3434.0
+        },
+        "2026-03-21": {
+          "activity_ids": [
+            "17798233531"
+          ],
+          "count": 1,
+          "distance": 2812.2,
+          "elevation_gain": 31.0,
+          "moving_time": 3277.0
         }
       }
     }
   },
-  "generated_at": "2026-03-20T15:46:33.723658+00:00",
+  "generated_at": "2026-03-21T15:29:46.459776+00:00",
   "other_bucket": "OtherSports",
   "profile_url": "https://www.strava.com/athletes/93365809",
   "repo": "Tucker11/git-sweaty",

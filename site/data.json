@@ -5354,6 +5354,15 @@
       "type": "WeightTraining",
       "url": "https://www.strava.com/activities/17845715533",
       "year": 2026
+    },
+    {
+      "date": "2026-03-26",
+      "hour": 17,
+      "name": "Frisbee training",
+      "subtype": "Workout",
+      "type": "Workout",
+      "url": "https://www.strava.com/activities/17862524076",
+      "year": 2026
     }
   ],
   "aggregates": {
@@ -10101,11 +10110,20 @@
           "distance": 2812.2,
           "elevation_gain": 31.0,
           "moving_time": 3277.0
+        },
+        "2026-03-26": {
+          "activity_ids": [
+            "17862524076"
+          ],
+          "count": 1,
+          "distance": 6022.9,
+          "elevation_gain": 2.2,
+          "moving_time": 4201.0
         }
       }
     }
   },
-  "generated_at": "2026-03-25T16:13:02.089495+00:00",
+  "generated_at": "2026-03-26T16:13:52.595055+00:00",
   "other_bucket": "OtherSports",
   "profile_url": "https://www.strava.com/athletes/93365809",
   "repo": "Tucker11/git-sweaty",

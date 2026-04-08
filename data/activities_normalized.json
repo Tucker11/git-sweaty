@@ -7837,5 +7837,18 @@
     "start_date_local": "2026-04-05T07:58:27Z",
     "type": "Run",
     "year": 2026
+  },
+  {
+    "date": "2026-04-08",
+    "distance": 5577.4,
+    "elevation_gain": 8.4,
+    "id": "18024758322",
+    "moving_time": 4547.0,
+    "name": "Final frisbee training",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-04-08T18:35:29Z",
+    "type": "Workout",
+    "year": 2026
   }
 ]

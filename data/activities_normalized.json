@@ -7850,5 +7850,44 @@
     "start_date_local": "2026-04-08T18:35:29Z",
     "type": "Workout",
     "year": 2026
+  },
+  {
+    "date": "2026-04-10",
+    "distance": 3881.7,
+    "elevation_gain": 7.4,
+    "id": "18047706151",
+    "moving_time": 3329.0,
+    "name": "Nationals game 1",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-04-10T08:00:38Z",
+    "type": "Workout",
+    "year": 2026
+  },
+  {
+    "date": "2026-04-10",
+    "distance": 2932.3,
+    "elevation_gain": 23.7,
+    "id": "18048914391",
+    "moving_time": 2336.0,
+    "name": "Nationals game 2",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-04-10T11:20:24Z",
+    "type": "Workout",
+    "year": 2026
+  },
+  {
+    "date": "2026-04-10",
+    "distance": 3218.6,
+    "elevation_gain": 0.0,
+    "id": "18049745030",
+    "moving_time": 2479.0,
+    "name": "Nationals game 3",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-04-10T14:39:40Z",
+    "type": "Workout",
+    "year": 2026
   }
 ]

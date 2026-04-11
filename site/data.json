@@ -5462,6 +5462,24 @@
       "type": "Workout",
       "url": "https://www.strava.com/activities/18049745030",
       "year": 2026
+    },
+    {
+      "date": "2026-04-11",
+      "hour": 8,
+      "name": "Nationals game 4",
+      "subtype": "Workout",
+      "type": "Workout",
+      "url": "https://www.strava.com/activities/18059403427",
+      "year": 2026
+    },
+    {
+      "date": "2026-04-11",
+      "hour": 13,
+      "name": "Nationals game 5",
+      "subtype": "Workout",
+      "type": "Workout",
+      "url": "https://www.strava.com/activities/18061020860",
+      "year": 2026
     }
   ],
   "aggregates": {
@@ -10303,11 +10321,21 @@
           "distance": 10032.6,
           "elevation_gain": 31.1,
           "moving_time": 8144.0
+        },
+        "2026-04-11": {
+          "activity_ids": [
+            "18059403427",
+            "18061020860"
+          ],
+          "count": 2,
+          "distance": 9310.7,
+          "elevation_gain": 29.9,
+          "moving_time": 7293.0
         }
       }
     }
   },
-  "generated_at": "2026-04-10T15:57:14.814842+00:00",
+  "generated_at": "2026-04-11T15:36:54.324996+00:00",
   "other_bucket": "OtherSports",
   "profile_url": "https://www.strava.com/athletes/93365809",
   "repo": "Tucker11/git-sweaty",

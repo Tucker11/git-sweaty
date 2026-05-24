@@ -5759,6 +5759,33 @@
       "type": "Workout",
       "url": "https://www.strava.com/activities/18616206119",
       "year": 2026
+    },
+    {
+      "date": "2026-05-24",
+      "hour": 8,
+      "name": "Beach Nats Game 7",
+      "subtype": "Workout",
+      "type": "Workout",
+      "url": "https://www.strava.com/activities/18627678363",
+      "year": 2026
+    },
+    {
+      "date": "2026-05-24",
+      "hour": 10,
+      "name": "Beach Nats Game 8",
+      "subtype": "Workout",
+      "type": "Workout",
+      "url": "https://www.strava.com/activities/18628718782",
+      "year": 2026
+    },
+    {
+      "date": "2026-05-24",
+      "hour": 13,
+      "name": "Beach Nats Game 9",
+      "subtype": "Workout",
+      "type": "Workout",
+      "url": "https://www.strava.com/activities/18629259791",
+      "year": 2026
     }
   ],
   "aggregates": {
@@ -10849,11 +10876,22 @@
           "distance": 4619.9,
           "elevation_gain": 0.0,
           "moving_time": 3700.0
+        },
+        "2026-05-24": {
+          "activity_ids": [
+            "18627678363",
+            "18628718782",
+            "18629259791"
+          ],
+          "count": 3,
+          "distance": 4749.700000000001,
+          "elevation_gain": 0.0,
+          "moving_time": 4029.0
         }
       }
     }
   },
-  "generated_at": "2026-05-23T16:03:28.691070+00:00",
+  "generated_at": "2026-05-24T16:03:13.232651+00:00",
   "other_bucket": "OtherSports",
   "profile_url": "https://www.strava.com/athletes/93365809",
   "repo": "Tucker11/git-sweaty",

@@ -8318,5 +8318,44 @@
     "start_date_local": "2026-05-23T14:00:44Z",
     "type": "Workout",
     "year": 2026
+  },
+  {
+    "date": "2026-05-24",
+    "distance": 1782.5,
+    "elevation_gain": 0.0,
+    "id": "18627678363",
+    "moving_time": 1389.0,
+    "name": "Beach Nats Game 7",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-05-24T08:31:39Z",
+    "type": "Workout",
+    "year": 2026
+  },
+  {
+    "date": "2026-05-24",
+    "distance": 1238.8,
+    "elevation_gain": 0.0,
+    "id": "18628718782",
+    "moving_time": 1094.0,
+    "name": "Beach Nats Game 8",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-05-24T10:49:43Z",
+    "type": "Workout",
+    "year": 2026
+  },
+  {
+    "date": "2026-05-24",
+    "distance": 1728.4,
+    "elevation_gain": 0.0,
+    "id": "18629259791",
+    "moving_time": 1546.0,
+    "name": "Beach Nats Game 9",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-05-24T13:11:09Z",
+    "type": "Workout",
+    "year": 2026
   }
 ]

@@ -5939,6 +5939,15 @@
       "type": "WeightTraining",
       "url": "https://www.strava.com/activities/18990189604",
       "year": 2026
+    },
+    {
+      "date": "2026-06-22",
+      "hour": 6,
+      "name": "Morning Weight Training",
+      "subtype": "WeightTraining",
+      "type": "WeightTraining",
+      "url": "https://www.strava.com/activities/19015729060",
+      "year": 2026
     }
   ],
   "aggregates": {
@@ -10967,6 +10976,15 @@
           "distance": 0.0,
           "elevation_gain": 0.0,
           "moving_time": 1811.0
+        },
+        "2026-06-22": {
+          "activity_ids": [
+            "19015729060"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 3424.0
         }
       },
       "Workout": {
@@ -11197,7 +11215,7 @@
       }
     }
   },
-  "generated_at": "2026-06-21T16:46:42.684632+00:00",
+  "generated_at": "2026-06-22T18:48:37.350011+00:00",
   "other_bucket": "OtherSports",
   "profile_url": "https://www.strava.com/athletes/93365809",
   "repo": "Tucker11/git-sweaty",

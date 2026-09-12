@@ -9436,5 +9436,18 @@
     "start_date_local": "2026-09-11T06:50:00Z",
     "type": "WeightTraining",
     "year": 2026
+  },
+  {
+    "date": "2026-09-12",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "20136064110",
+    "moving_time": 2143.0,
+    "name": "Morning Weight Training",
+    "raw_activity_type": "WeightTraining",
+    "raw_type": "WeightTraining",
+    "start_date_local": "2026-09-12T08:24:50Z",
+    "type": "WeightTraining",
+    "year": 2026
   }
 ]

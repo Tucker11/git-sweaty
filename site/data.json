@@ -6911,6 +6911,24 @@
       "type": "Run",
       "url": "https://www.strava.com/activities/20760929010",
       "year": 2026
+    },
+    {
+      "date": "2026-11-02",
+      "hour": 18,
+      "name": "Frisbee league",
+      "subtype": "Workout",
+      "type": "Workout",
+      "url": "https://www.strava.com/activities/20826426198",
+      "year": 2026
+    },
+    {
+      "date": "2026-11-03",
+      "hour": 7,
+      "name": "Morning Weight Training",
+      "subtype": "WeightTraining",
+      "type": "WeightTraining",
+      "url": "https://www.strava.com/activities/20834803652",
+      "year": 2026
     }
   ],
   "aggregates": {
@@ -12866,6 +12884,15 @@
           "distance": 0.0,
           "elevation_gain": 0.0,
           "moving_time": 3039.0
+        },
+        "2026-11-03": {
+          "activity_ids": [
+            "20834803652"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 3993.0
         }
       },
       "Workout": {
@@ -13137,11 +13164,20 @@
           "distance": 6611.6,
           "elevation_gain": 9.9,
           "moving_time": 3991.0
+        },
+        "2026-11-02": {
+          "activity_ids": [
+            "20826426198"
+          ],
+          "count": 1,
+          "distance": 5911.0,
+          "elevation_gain": 0.0,
+          "moving_time": 4126.0
         }
       }
     }
   },
-  "generated_at": "2026-11-01T19:24:42.708520+00:00",
+  "generated_at": "2026-11-02T23:00:58.277981+00:00",
   "other_bucket": "OtherSports",
   "profile_url": "https://www.strava.com/athletes/93365809",
   "repo": "Tucker11/git-sweaty",

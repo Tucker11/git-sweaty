@@ -10125,5 +10125,44 @@
     "start_date_local": "2026-11-13T07:10:56Z",
     "type": "WeightTraining",
     "year": 2026
+  },
+  {
+    "date": "2026-11-16",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "21002416980",
+    "moving_time": 3406.0,
+    "name": "Morning Weight Training",
+    "raw_activity_type": "WeightTraining",
+    "raw_type": "WeightTraining",
+    "start_date_local": "2026-11-16T07:03:47Z",
+    "type": "WeightTraining",
+    "year": 2026
+  },
+  {
+    "date": "2026-11-16",
+    "distance": 6004.0,
+    "elevation_gain": 2.2,
+    "id": "21006209997",
+    "moving_time": 3872.0,
+    "name": "Frisbee league",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-11-16T18:53:29Z",
+    "type": "Workout",
+    "year": 2026
+  },
+  {
+    "date": "2026-11-17",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "21013688572",
+    "moving_time": 3112.0,
+    "name": "Morning Weight Training",
+    "raw_activity_type": "WeightTraining",
+    "raw_type": "WeightTraining",
+    "start_date_local": "2026-11-17T07:04:17Z",
+    "type": "WeightTraining",
+    "year": 2026
   }
 ]

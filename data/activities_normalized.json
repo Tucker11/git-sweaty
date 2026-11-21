@@ -10203,5 +10203,18 @@
     "start_date_local": "2026-11-20T07:03:35Z",
     "type": "WeightTraining",
     "year": 2026
+  },
+  {
+    "date": "2026-11-21",
+    "distance": 2717.6,
+    "elevation_gain": 138.0,
+    "id": "21065711099",
+    "moving_time": 3010.0,
+    "name": "Lunch Walk",
+    "raw_activity_type": "Walk",
+    "raw_type": "Walk",
+    "start_date_local": "2026-11-21T11:53:51Z",
+    "type": "Walk",
+    "year": 2026
   }
 ]

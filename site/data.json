@@ -7082,6 +7082,24 @@
       "type": "WeightTraining",
       "url": "https://www.strava.com/activities/21088441473",
       "year": 2026
+    },
+    {
+      "date": "2026-11-23",
+      "hour": 18,
+      "name": "Evening Workout",
+      "subtype": "Workout",
+      "type": "Workout",
+      "url": "https://www.strava.com/activities/21092375790",
+      "year": 2026
+    },
+    {
+      "date": "2026-11-24",
+      "hour": 7,
+      "name": "Morning Weight Training",
+      "subtype": "WeightTraining",
+      "type": "WeightTraining",
+      "url": "https://www.strava.com/activities/21099771793",
+      "year": 2026
     }
   ],
   "aggregates": {
@@ -13172,6 +13190,15 @@
           "distance": 0.0,
           "elevation_gain": 0.0,
           "moving_time": 3661.0
+        },
+        "2026-11-24": {
+          "activity_ids": [
+            "21099771793"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 3297.0
         }
       },
       "Workout": {
@@ -13479,11 +13506,20 @@
           "distance": 7598.4,
           "elevation_gain": 58.0,
           "moving_time": 5170.0
+        },
+        "2026-11-23": {
+          "activity_ids": [
+            "21092375790"
+          ],
+          "count": 1,
+          "distance": 7182.5,
+          "elevation_gain": 19.3,
+          "moving_time": 4860.0
         }
       }
     }
   },
-  "generated_at": "2026-11-22T20:57:09.603700+00:00",
+  "generated_at": "2026-11-24T02:01:54.567188+00:00",
   "other_bucket": "OtherSports",
   "profile_url": "https://www.strava.com/athletes/93365809",
   "repo": "Tucker11/git-sweaty",

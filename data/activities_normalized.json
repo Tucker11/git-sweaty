@@ -10229,5 +10229,31 @@
     "start_date_local": "2026-11-23T06:48:31Z",
     "type": "WeightTraining",
     "year": 2026
+  },
+  {
+    "date": "2026-11-23",
+    "distance": 7182.5,
+    "elevation_gain": 19.3,
+    "id": "21092375790",
+    "moving_time": 4860.0,
+    "name": "Evening Workout",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-11-23T18:34:19Z",
+    "type": "Workout",
+    "year": 2026
+  },
+  {
+    "date": "2026-11-24",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "21099771793",
+    "moving_time": 3297.0,
+    "name": "Morning Weight Training",
+    "raw_activity_type": "WeightTraining",
+    "raw_type": "WeightTraining",
+    "start_date_local": "2026-11-24T07:07:15Z",
+    "type": "WeightTraining",
+    "year": 2026
   }
 ]
